@@ -31,8 +31,17 @@ const InstrumentFamilies = function() {
 };
 
 InstrumentFamilies.prototype.bindEvents = function () {
-  console.log('In families')
   PubSub.publish('InstrumentFamilies:all-families', this.instrumentFamilies);
+
+  PubSub.subscribe('SelectView:selected-index', (event) => {
+    const selectedIndex = event.detail;
+    this.sendFamily(selectedIndex);
+  });
+};
+
+InstrumentFamilies.prototype.sendFamily = function (selectedIndex) {
+  const selectedFamily = this.instrumentFamilies[selectedIndex];
+  PubSub.publish('InstrumentFamilies:chosen-family', selectedFamily);
 };
 
 module.exports = InstrumentFamilies;

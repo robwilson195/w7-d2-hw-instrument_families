@@ -6,9 +6,13 @@ const SelectView = function (element) {
 
 SelectView.prototype.bindEvents = function () {
   PubSub.subscribe('InstrumentFamilies:all-families', (event) => {
-    console.log('now in selectView');
     const families = event.detail;
     this.populate(families);
+  });
+
+  this.element.addEventListener('change', (event) => {
+    const chosenIndex = event.target.value;
+    PubSub.publish('SelectView:selected-index', chosenIndex)
   });
 
 };

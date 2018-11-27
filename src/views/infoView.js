@@ -14,13 +14,23 @@ InfoView.prototype.bindEvents = function () {
 InfoView.prototype.displayFamilyData = function (family) {
   this.element.textContent = '';
 
-  nameLine = document.createElement('h3');
+  const nameLine = document.createElement('h3');
   nameLine.textContent = family.name;
   this.element.appendChild(nameLine);
 
-  descriptionLine = document.createElement('p');
+  const descriptionLine = document.createElement('p');
   descriptionLine.textContent = family.description;
   this.element.appendChild(descriptionLine);
+
+  const instList = document.createElement('ul');
+  this.element.appendChild(instList);
+
+  family.instruments.forEach((instrument) => {
+    listItem = document.createElement('li');
+    listItem.textContent = instrument;
+    instList.appendChild(listItem);
+  });
+
 };
 
 module.exports = InfoView;
